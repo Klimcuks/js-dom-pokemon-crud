@@ -16,7 +16,8 @@ function addPokemon(pokemon) {
 }
 
 function addPokemons(pokemons) {
-  pokemons.forEach(pokemon => addPokemon(pokemon))
+  pokeList.innerHTML = ''
+  pokemons.forEach((pokemon) => addPokemon(pokemon));
 }
 
 function listenToAddPokemonForm() {
@@ -24,32 +25,34 @@ function listenToAddPokemonForm() {
     event.preventDefault();
     const pokemon = {
       name: pokeForm.name.value,
-      image: pokeForm.image.value
+      image: pokeForm.image.value,
     };
 
     // CREATE
-    // fetch("http://localhost:3000/pokemons", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify(pokemon)
-    // })
-    //   .then(res =>  res.json())
-    //   .then(pokemon => addPokemon(pokemon));
-    //   });
-
-    pokeForm.reset();
+    fetch("http://localhost:3000/pokemons", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(pokemon),
+    })
+      .then((res) => res.json())
+      .then((pokemon) => addPokemon(pokemon));
   });
+
+  pokeForm.reset();
 }
 
 function init() {
   listenToAddPokemonForm();
 
-  // READ
-  // fetch("http://localhost:3000/pokemons")
-  //   .then(res => res.json());
-  //   .then(pokemons => addPokemons(pokemons));
+  fetchAndRender();
+}
+
+function fetchAndRender() {
+  fetch("http://localhost:3000/pokemons")
+    .then((res) => res.json())
+    .then((pokemons) => addPokemons(pokemons));
 }
 
 init();

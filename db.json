@@ -29,6 +29,11 @@
       "name": "Ed",
       "image": "sdfds",
       "id": 7
+    },
+    {
+      "name": "Nikita",
+      "image": "https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Pok%C3%A9mon_Charmander_art.png/220px-Pok%C3%A9mon_Charmander_art.png",
+      "id": 8
     }
   ]
 }
