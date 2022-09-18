@@ -1,17 +1,30 @@
 const pokeForm = document.querySelector(".poke-form");
 const pokeList = document.querySelector(".poke-list");
 
+
 function addPokemon(pokemon) {
   const liEl = document.createElement("li");
   const imgEl = document.createElement("img");
   const h2El = document.createElement("h2");
+  const deleteButton = document.createElement("button");
+  const likeButton = document.createElement('img')
+
 
   liEl.classList.add("pokemon");
   imgEl.src = pokemon.image;
 
   h2El.innerText = pokemon.name;
 
-  liEl.append(imgEl, h2El);
+
+  deleteButton.innerHTML = 'Remove Pokemon'
+  deleteButton.addEventListener('click', () => {
+  fetch(`http://localhost:3000/pokemons/${pokemon.id}`, {
+    method: 'DELETE'
+  })
+})
+
+
+  liEl.append(imgEl, h2El, deleteButton, likeButton);
   pokeList.append(liEl);
 }
 
@@ -27,6 +40,9 @@ function listenToAddPokemonForm() {
       name: pokeForm.name.value,
       image: pokeForm.image.value,
     };
+
+
+
 
     // CREATE
     fetch("http://localhost:3000/pokemons", {
@@ -44,6 +60,8 @@ function listenToAddPokemonForm() {
 }
 
 function init() {
+  pokeList.innerHTML = ""
+
   listenToAddPokemonForm();
 
   fetchAndRender();
