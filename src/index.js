@@ -1,5 +1,7 @@
 const pokeForm = document.querySelector(".poke-form");
 const pokeList = document.querySelector(".poke-list");
+let likeButtonSwitch = false
+
 
 
 function addPokemon(pokemon) {
@@ -12,8 +14,9 @@ function addPokemon(pokemon) {
 
   liEl.classList.add("pokemon");
   imgEl.src = pokemon.image;
-
   h2El.innerText = pokemon.name;
+  likeButton.src = "src/img/heart (4).png"
+  likeButton.classList.add("pokemon-like");
 
 
   deleteButton.innerHTML = 'Remove Pokemon'
@@ -23,9 +26,23 @@ function addPokemon(pokemon) {
   })
 })
 
+likeButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  console.log("Like Pokemon");
+  likeButton.src = getLikeButtonSrc(!likeButtonSwitch);
+});
+
 
   liEl.append(imgEl, h2El, deleteButton, likeButton);
   pokeList.append(liEl);
+}
+
+function getLikeButtonSrc(likeButton) {
+  likeButtonSwitch = likeButton
+  if (likeButton) {
+    return "src/img/heart (3).png";
+  }   
+  return "src/img/heart (4).png"; 
 }
 
 function addPokemons(pokemons) {
@@ -40,8 +57,6 @@ function listenToAddPokemonForm() {
       name: pokeForm.name.value,
       image: pokeForm.image.value,
     };
-
-
 
 
     // CREATE
